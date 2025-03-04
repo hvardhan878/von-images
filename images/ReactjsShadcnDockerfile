@@ -72,8 +72,8 @@ RUN npm install -D shadcn-ui
 # Initialize Shadcn with default settings
 RUN npx shadcn@2.1.8 init --defaults --force --yes
 
-# Now force CMDK to a compatible version
-RUN npm install cmdk@1.0.0
+
+RUN npm install -D @types/lodash
 
 # Add all Shadcn components
 RUN npx shadcn@2.1.8 add --all --yes
