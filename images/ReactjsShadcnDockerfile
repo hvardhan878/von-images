@@ -53,6 +53,7 @@ RUN echo '{ \
     "resolveJsonModule": true, \
     "isolatedModules": true, \
     "esModuleInterop": true, \
+    "noEmit": true, \
     "strict": true, \
     "baseUrl": ".", \
     "paths": { "@/*": ["./src/*"] }, \
