@@ -67,8 +67,6 @@ RUN echo '{ \
   "exclude": ["node_modules"] \
 }' > tsconfig.json
 
-# Install Shadcn CLI
-RUN npm install -D shadcn-ui
 
 # Initialize Shadcn with default settings
 RUN npx shadcn@2.1.8 init --defaults --force --yes
