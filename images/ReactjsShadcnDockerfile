@@ -68,8 +68,4 @@ export default defineConfig({\n\
   }\n\
 });' > vite.config.js
 
-# Build the application
-RUN npm run build || cat /frontend/node_modules/vite/dist/node/chunks/dep-*.js
-
 EXPOSE 3000
-
