@@ -2,6 +2,7 @@ FROM python:3.11
 
 WORKDIR /
 
+# Install necessary packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
@@ -16,58 +17,72 @@ RUN apt-get update && \
 
 RUN node --version && npm --version
 
-# Create React app with Vite
-RUN npm create vite@latest frontend -- --template react
+# Create React app with Vite (TypeScript template)
+RUN npm create vite@latest frontend -- --template react-ts
 
-COPY images/sample-package-react-shadcn-vite.json /frontend/package.json
-
-# Set working directory and install dependencies
+# Set working directory
 WORKDIR /frontend
+
+# Install dependencies
 RUN npm install
 
-# Install additional dependencies
-RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
-RUN npm install -D eslint eslint-plugin-react
-
-# Install and set up Tailwind CSS manually
+# Install Tailwind CSS and its peer dependencies
 RUN npm install -D tailwindcss postcss autoprefixer
 
-# Create Tailwind config files with .cjs extension for CommonJS syntax
+# Configure Tailwind CSS
 RUN echo 'module.exports = {\n\
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],\n\
   theme: {\n\
     extend: {},\n\
   },\n\
   plugins: [],\n\
-};' > tailwind.config.cjs
+};' > tailwind.config.js
 
-RUN echo 'module.exports = {\n\
-  plugins: {\n\
-    tailwindcss: {},\n\
-    autoprefixer: {},\n\
-  }\n\
-}' > postcss.config.cjs
-
-# Add CSS imports for tailwind
+# Add Tailwind imports to index.css
 RUN echo '@tailwind base;\n\
 @tailwind components;\n\
 @tailwind utilities;' > ./src/index.css
 
-# Try to set up shadcn (may not work, but won't fail the build)
-RUN npm install -D @shadcn/ui || true
-RUN mkdir -p /frontend/components/ui
+# Add correct tsconfig.json with path alias
+RUN echo '{\n\
+  "compilerOptions": {\n\
+    "baseUrl": ".",\n\
+    "paths": {\n\
+      "@/*": ["./src/*"]\n\
+    }\n\
+  }\n\
+}' > tsconfig.json
 
-# Update Vite config using ES module syntax
+# Install Shadcn CLI
+RUN npm install -D shadcn-ui
+
+# Initialize Shadcn with default settings
+RUN npx shadcn init --yes
+
+# Add all Shadcn components
+RUN npx shadcn add --all --yes
+
+# Install additional dependencies
+RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
+RUN npm install -D eslint eslint-plugin-react
+
+# Update Vite config for proper aliasing
 RUN echo 'import { defineConfig } from "vite";\n\
 import react from "@vitejs/plugin-react";\n\
+import path from "path";\n\
 \n\
 export default defineConfig({\n\
   plugins: [react()],\n\
+  resolve: {\n\
+    alias: {\n\
+      "@": path.resolve(__dirname, "src"),\n\
+    },\n\
+  },\n\
   server: {\n\
-    allowedHosts: true,\n\
     port: 3000,\n\
-    host: "0.0.0.0"\n\
-  }\n\
-});' > vite.config.js
+    host: "0.0.0.0",\n\
+  },\n\
+});' > vite.config.ts
 
+# Expose the development server port
 EXPOSE 3000
