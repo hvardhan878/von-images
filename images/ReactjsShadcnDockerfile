@@ -19,9 +19,7 @@ RUN node --version && npm --version
 # Create React app with Vite
 RUN npm create vite@latest frontend -- --template react
 
-RUN pwd
-RUN ls -la
-COPY /sample-package-react-shadcn-vite.json /frontend/package.json
+COPY images/sample-package-react-shadcn-vite.json /frontend/package.json
 
 # Set working directory and install dependencies
 WORKDIR /frontend
