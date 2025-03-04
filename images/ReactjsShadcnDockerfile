@@ -81,6 +81,8 @@ RUN npx shadcn@2.1.8 add --all --yes
 RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
 RUN npm install -D eslint eslint-plugin-react
 
+RUN npm i --save-dev @types/lodash
+
 
 # Update Vite config for proper aliasing
 RUN echo 'import { defineConfig } from "vite";\n\
