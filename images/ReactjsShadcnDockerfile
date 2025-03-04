@@ -23,9 +23,6 @@ RUN npm create vite@latest frontend -- --template react-ts
 # Set working directory
 WORKDIR /frontend
 
-# Force React 18
-RUN npm install react@^18.3.1 react-dom@^18.3.1
-
 # Install dependencies
 RUN npm install
 
@@ -70,11 +67,11 @@ RUN echo '{ \
 RUN npm install -D shadcn-ui
 
 # Initialize Shadcn with default settings
-RUN npx shadcn@2.1.8 init --defaults --force --yes
+RUN npx shadcn@latest init --defaults --force --yes
 
 
 # Add all Shadcn components
-RUN npx shadcn@2.1.8 add --all --yes
+RUN npx shadcn@latest add --all --yes
 
 # Install additional dependencies
 RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
