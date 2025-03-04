@@ -26,6 +26,10 @@ WORKDIR /frontend
 # Install dependencies
 RUN npm install
 
+# Pin specific versions
+RUN npm install react@18.2.0 react-dom@18.2.0 typescript@5.1.6 \
+    @types/node@20.4.6 @types/react@18.2.18 @types/react-dom@18.2.7
+
 # Install Tailwind CSS and its peer dependencies
 RUN npm install -D tailwindcss postcss autoprefixer
 
@@ -67,18 +71,16 @@ RUN echo '{ \
 RUN npm install -D shadcn-ui
 
 # Initialize Shadcn with default settings
-RUN npx shadcn@latest init --defaults --force --yes
+RUN npx shadcn@2.1.8 init --defaults --force --yes
 
 
 # Add all Shadcn components
-RUN npx shadcn@latest add --all --yes
+RUN npx shadcn@2.1.8 add --all --yes
 
 # Install additional dependencies
 RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
 RUN npm install -D eslint eslint-plugin-react
 
-RUN npm install -D @types/node
-RUN npm i --save-dev @types/lodash
 
 # Update Vite config for proper aliasing
 RUN echo 'import { defineConfig } from "vite";\n\
