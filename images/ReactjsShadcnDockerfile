@@ -2,6 +2,7 @@ FROM python:3.11
 
 WORKDIR /
 
+# Install necessary packages
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     curl \
@@ -16,67 +17,68 @@ RUN apt-get update && \
 
 RUN node --version && npm --version
 
-# Create React app with Vite
-RUN npm create vite@latest frontend -- --template react
+# Create React app with Vite (TypeScript template)
+RUN npm create vite@latest frontend -- --template react-ts
 
-COPY images/sample-package-react-shadcn-vite.json /frontend/package.json
-
-# Set working directory and install dependencies
+# Set working directory
 WORKDIR /frontend
+
+# Install dependencies
 RUN npm install
 
-# Install additional dependencies
-RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
-RUN npm install -D eslint eslint-plugin-react
-
-# Install and set up Tailwind CSS manually
+# Install Tailwind CSS and its peer dependencies
 RUN npm install -D tailwindcss postcss autoprefixer
 
-# Create Tailwind config files with .cjs extension for CommonJS syntax
+# Initialize Tailwind CSS
+RUN npx tailwindcss init -p
+
+# Configure Tailwind CSS
 RUN echo 'module.exports = {\n\
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],\n\
   theme: {\n\
     extend: {},\n\
   },\n\
   plugins: [],\n\
-};' > tailwind.config.cjs
+};' > tailwind.config.js
 
-RUN echo 'module.exports = {\n\
-  plugins: {\n\
-    tailwindcss: {},\n\
-    autoprefixer: {},\n\
-  }\n\
-}' > postcss.config.cjs
-
-# Add CSS imports for tailwind
+# Add Tailwind imports to index.css
 RUN echo '@tailwind base;\n\
 @tailwind components;\n\
 @tailwind utilities;' > ./src/index.css
 
-# Fetch and add Shadcn UI components directly into src/components/ui
-RUN mkdir -p /frontend/src/components/ui && \
-    cd /frontend/src/components/ui && \
-    for component in accordion alert alert-dialog aspect-ratio avatar badge button card checkbox collapsible dialog dropdown-menu hover-card input label popover progress radio-group scroll-area select separator sheet skeleton slider switch table tabs textarea toast toggle tooltip; do \
-        curl -s -o "$component.jsx" "https://raw.githubusercontent.com/shadcn-ui/ui/main/components/ui/$component.tsx" && \
-        sed -i 's/: string//g' "$component.jsx" && \
-        sed -i 's/: boolean//g' "$component.jsx" && \
-        sed -i 's/: number//g' "$component.jsx" && \
-        sed -i 's/: ReactNode//g' "$component.jsx" && \
-        sed -i 's/export type /export /g' "$component.jsx" && \
-        sed -i 's/import type /import /g' "$component.jsx"; \
-    done
+# Install Shadcn CLI
+RUN npm install -D shadcn-ui
 
-# Update Vite config using ES module syntax
+# Initialize Shadcn with default settings
+RUN npx shadcn init --yes
+
+# Add all Shadcn components
+RUN npx shadcn add --all --yes
+
+# Install additional dependencies
+RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
+RUN npm install -D eslint eslint-plugin-react
+
+# Update Vite config for proper aliasing
 RUN echo 'import { defineConfig } from "vite";\n\
 import react from "@vitejs/plugin-react";\n\
+import path from "path";\n\
 \n\
 export default defineConfig({\n\
   plugins: [react()],\n\
+  resolve: {\n\
+    alias: {\n\
+      "@": path.resolve(__dirname, "src"),\n\
+    },\n\
+  },\n\
   server: {\n\
-    allowedHosts: true,\n\
     port: 3000,\n\
-    host: "0.0.0.0"\n\
-  }\n\
-});' > vite.config.js
+    host: "0.0.0.0",\n\
+  },\n\
+});' > vite.config.ts
 
+# Expose the development server port
 EXPOSE 3000
+
+# Start the Vite development server
+CMD ["npm", "run", "dev"]
