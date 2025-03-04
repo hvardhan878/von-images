@@ -18,11 +18,13 @@ RUN apt-get update && \
 RUN node --version && npm --version
 
 # Create React app with Vite (TypeScript template)
-RUN npm create vite@5.4.1 frontend -- --template react-ts
-
+RUN npm create vite@latest frontend -- --template react-ts
 
 # Set working directory
 WORKDIR /frontend
+
+# Force React 18
+RUN npm install react@18 react-dom@18
 
 # Install dependencies
 RUN npm install
