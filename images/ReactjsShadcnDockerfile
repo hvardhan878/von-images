@@ -29,9 +29,6 @@ RUN npm install
 # Install Tailwind CSS and its peer dependencies
 RUN npm install -D tailwindcss postcss autoprefixer
 
-# Initialize Tailwind CSS
-RUN npx tailwindcss init -p
-
 # Configure Tailwind CSS
 RUN echo 'module.exports = {\n\
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],\n\
