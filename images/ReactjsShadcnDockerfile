@@ -53,9 +53,18 @@ RUN echo '@tailwind base;\n\
 @tailwind components;\n\
 @tailwind utilities;' > ./src/index.css
 
-# Try to set up shadcn (may not work, but won't fail the build)
-RUN npm install -D @shadcn/ui || true
-RUN mkdir -p /frontend/components/ui
+# Fetch and add Shadcn UI components directly into src/components/ui
+RUN mkdir -p /frontend/src/components/ui && \
+    cd /frontend/src/components/ui && \
+    for component in accordion alert alert-dialog aspect-ratio avatar badge button card checkbox collapsible dialog dropdown-menu hover-card input label popover progress radio-group scroll-area select separator sheet skeleton slider switch table tabs textarea toast toggle tooltip; do \
+        curl -s -o "$component.jsx" "https://raw.githubusercontent.com/shadcn-ui/ui/main/components/ui/$component.tsx" && \
+        sed -i 's/: string//g' "$component.jsx" && \
+        sed -i 's/: boolean//g' "$component.jsx" && \
+        sed -i 's/: number//g' "$component.jsx" && \
+        sed -i 's/: ReactNode//g' "$component.jsx" && \
+        sed -i 's/export type /export /g' "$component.jsx" && \
+        sed -i 's/import type /import /g' "$component.jsx"; \
+    done
 
 # Update Vite config using ES module syntax
 RUN echo 'import { defineConfig } from "vite";\n\
