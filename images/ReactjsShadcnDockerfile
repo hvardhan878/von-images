@@ -44,13 +44,22 @@ RUN echo '@tailwind base;\n\
 @tailwind utilities;' > ./src/index.css
 
 # Add correct tsconfig.json with path alias
-RUN echo '{\n\
-  "compilerOptions": {\n\
-    "baseUrl": ".",\n\
-    "paths": {\n\
-      "@/*": ["./src/*"]\n\
-    }\n\
-  }\n\
+RUN echo '{ \
+  "compilerOptions": { \
+    "target": "esnext", \
+    "lib": ["dom", "dom.iterable", "esnext"], \
+    "jsx": "react-jsx", \
+    "moduleResolution": "bundler", \
+    "resolveJsonModule": true, \
+    "isolatedModules": true, \
+    "esModuleInterop": true, \
+    "strict": true, \
+    "baseUrl": ".", \
+    "paths": { "@/*": ["./src/*"] }, \
+    "allowImportingTsExtensions": true \
+  }, \
+  "include": ["src"], \
+  "exclude": ["node_modules"] \
 }' > tsconfig.json
 
 # Install Shadcn CLI
