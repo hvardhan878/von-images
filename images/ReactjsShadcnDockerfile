@@ -43,6 +43,16 @@ RUN echo '@tailwind base;\n\
 @tailwind components;\n\
 @tailwind utilities;' > ./src/index.css
 
+# Add correct tsconfig.json with path alias
+RUN echo '{\n\
+  "compilerOptions": {\n\
+    "baseUrl": ".",\n\
+    "paths": {\n\
+      "@/*": ["./src/*"]\n\
+    }\n\
+  }\n\
+}' > tsconfig.json
+
 # Install Shadcn CLI
 RUN npm install -D shadcn-ui
 
