@@ -81,6 +81,7 @@ RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge
 RUN npm install -D eslint eslint-plugin-react
 
 RUN npm install -D @types/node
+RUN npm i --save-dev @types/lodash
 
 # Update Vite config for proper aliasing
 RUN echo 'import { defineConfig } from "vite";\n\
