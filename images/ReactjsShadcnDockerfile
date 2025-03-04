@@ -70,11 +70,11 @@ RUN echo '{ \
 RUN npm install -D shadcn-ui
 
 # Initialize Shadcn with default settings
-RUN npx shadcn@latest init --defaults --force --yes
+RUN npx shadcn@2.1.8 init --defaults --force --yes
 
 
 # Add all Shadcn components
-RUN npx shadcn@latest add --all --yes
+RUN npx shadcn@2.1.8 add --all --yes
 
 # Install additional dependencies
 RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
