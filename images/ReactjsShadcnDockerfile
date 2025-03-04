@@ -24,15 +24,13 @@ RUN npm create vite@latest frontend -- --template react-ts
 WORKDIR /frontend
 
 # Force React 18
-RUN npm install react@18 react-dom@18
+RUN npm install react@^18.3.1 react-dom@^18.3.1
 
 # Install dependencies
 RUN npm install
 
 # Install Tailwind CSS and its peer dependencies
 RUN npm install -D tailwindcss postcss autoprefixer
-
-RUN npm install cmdk@0.2.2
 
 # Configure Tailwind CSS
 RUN echo 'module.exports = {\n\
@@ -72,17 +70,17 @@ RUN echo '{ \
 RUN npm install -D shadcn-ui
 
 # Initialize Shadcn with default settings
-RUN npx shadcn@2.1.8 init --defaults --force --yes
+RUN npx shadcn@latest init --defaults --force --yes
 
-
-RUN npm install -D @types/lodash
 
 # Add all Shadcn components
-RUN npx shadcn@2.1.8 add --all --yes
+RUN npx shadcn@latest add --all --yes
 
 # Install additional dependencies
 RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
 RUN npm install -D eslint eslint-plugin-react
+
+RUN npm install -D @types/node
 
 # Update Vite config for proper aliasing
 RUN echo 'import { defineConfig } from "vite";\n\
