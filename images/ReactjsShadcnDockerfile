@@ -27,7 +27,7 @@ WORKDIR /frontend
 RUN npm install
 
 # Pin specific versions
-RUN npm install react@18.3.1 react-dom@18.3.1 typescript@5.5.3 \
+RUN npm install react@18.3.1 react-dom@18.3.1 react-router-dom@7.3.0 typescript@5.5.3 \
     @types/node@22.5.5 @types/react@18.3.3 @types/react-dom@18.3.0
 
 # Install Tailwind CSS and its peer dependencies
