@@ -35,12 +35,7 @@ RUN npm install -D tailwindcss postcss autoprefixer
 
 # Configure Tailwind CSS
 RUN echo 'module.exports = {\n\
-  content: [
-		"./pages/**/*.{ts,tsx}",
-		"./components/**/*.{ts,tsx}",
-		"./app/**/*.{ts,tsx}",
-		"./src/**/*.{ts,tsx}",
-	],\n\
+  content: ["./pages/**/*.{ts,tsx}","./components/**/*.{ts,tsx}","./app/**/*.{ts,tsx}","./src/**/*.{ts,tsx}",],\n\
   theme: {\n\
     extend: {},\n\
   },\n\
