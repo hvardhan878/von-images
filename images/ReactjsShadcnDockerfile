@@ -95,6 +95,7 @@ export default defineConfig({\n\
     },\n\
   },\n\
   server: {\n\
+    allowedHosts: true,\n\
     port: 3000,\n\
     host: "0.0.0.0",\n\
   },\n\
