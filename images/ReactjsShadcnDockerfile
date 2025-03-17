@@ -85,7 +85,7 @@ RUN npm i --save-dev @types/lodash
 # Update Vite config for proper aliasing
 RUN echo 'import { defineConfig } from "vite";\n\
 import react from "@vitejs/plugin-react";\n\
-import tailwindcss from "@tailwindcss/vite";n\
+import tailwindcss from "@tailwindcss/vite";\n\
 import path from "path";\n\
 \n\
 export default defineConfig({\n\
