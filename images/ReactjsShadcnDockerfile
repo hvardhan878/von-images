@@ -18,11 +18,14 @@ RUN apt-get update && \
 
 RUN node --version && npm --version
 
-RUN git clone git@github.com:hvardhan878/blank-canvas-template.git frontend
+RUN git clone https://github.com/hvardhan878/blank-canvas-template.git frontend
 
 WORKDIR /frontend
 
-RUN npm install
+RUN rm -rf .git/
+RUN git init
+
+RUN npm install --force
 RUN npm run build
 
 EXPOSE 3000
