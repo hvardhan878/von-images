@@ -9,6 +9,7 @@ RUN apt-get update && \
     wget \
     zip \
     tree \
+    git \
     unzip && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y --no-install-recommends nodejs && \
@@ -17,132 +18,11 @@ RUN apt-get update && \
 
 RUN node --version && npm --version
 
-# Create React app with Vite (TypeScript template)
-RUN npm create vite@latest frontend -- --template react-ts
+RUN git clone git@github.com:hvardhan878/blank-canvas-template.git frontend
 
-# Set working directory
 WORKDIR /frontend
 
-# Install dependencies
 RUN npm install
-
-# Pin specific versions
-RUN npm install react@18.3.1 react-dom@18.3.1 react-router-dom@7.3.0 typescript@5.5.3 \
-    @types/node@22.5.5 @types/react@18.3.3 @types/react-dom@18.3.0
-
-# Install Tailwind CSS and its peer dependencies
-RUN npm install -D tailwindcss@3.4.1 postcss autoprefixer @tailwindcss/postcss @tailwindcss/vite
-
-# Configure Tailwind CSS
-RUN echo 'module.exports = {\n\
-  content: ["./pages/**/*.{ts,tsx}","./components/**/*.{ts,tsx}","./app/**/*.{ts,tsx}","./src/**/*.{ts,tsx}",],\n\
-  theme: {\n\
-    extend: {\n\
-      colors: {\n\
-        border: {\n\
-          DEFAULT: "hsl(var(--border))",\n\
-          50: "hsl(var(--border) / 0.5)",\n\
-        },\n\
-        background: "hsl(var(--background))",\n\
-        foreground: "hsl(var(--foreground))",\n\
-        card: "hsl(var(--card))",\n\
-        "card-foreground": "hsl(var(--card-foreground))",\n\
-        popover: "hsl(var(--popover))",\n\
-        "popover-foreground": "hsl(var(--popover-foreground))",\n\
-        primary: "hsl(var(--primary))",\n\
-        "primary-foreground": "hsl(var(--primary-foreground))",\n\
-        secondary: "hsl(var(--secondary))",\n\
-        "secondary-foreground": "hsl(var(--secondary-foreground))",\n\
-        muted: "hsl(var(--muted))",\n\
-        "muted-foreground": "hsl(var(--muted-foreground))",\n\
-        accent: "hsl(var(--accent))",\n\
-        "accent-foreground": "hsl(var(--accent-foreground))",\n\
-        destructive: "hsl(var(--destructive))",\n\
-        "destructive-foreground": "hsl(var(--destructive-foreground))",\n\
-        ring: "hsl(var(--ring))",\n\
-        input: "hsl(var(--input))",\n\
-      },\n\
-      borderRadius: {\n\
-        lg: "var(--radius)",\n\
-      },\n\
-    },\n\
-  },\n\
-  safelist: [\n\
-    "border-border",\n\
-  ],\n\
-  plugins: [],\n\
-};' > tailwind.config.ts
-
-# Add Tailwind imports to index.css
-RUN echo '@tailwind base;\n\
-@tailwind components;\n\
-@tailwind utilities;' > ./src/index.css
-
-# Add correct tsconfig.json with path alias
-RUN echo '{ \
-  "compilerOptions": { \
-    "target": "esnext", \
-    "lib": ["dom", "dom.iterable", "esnext"], \
-    "jsx": "react-jsx", \
-    "moduleResolution": "bundler", \
-    "resolveJsonModule": true, \
-    "isolatedModules": true, \
-    "esModuleInterop": true, \
-    "noEmit": true, \
-    "strict": true, \
-    "baseUrl": ".", \
-    "paths": { "@/*": ["./src/*"] }, \
-    "allowImportingTsExtensions": true \
-  }, \
-  "include": ["src"], \
-  "exclude": ["node_modules"] \
-}' > tsconfig.json
-
-
-# Initialize Shadcn with default settings
-RUN npx shadcn@2.1.8 init --defaults --force --yes
-
-
-# Add all Shadcn components
-RUN npx shadcn@2.1.8 add --all --yes
-
-# Install additional dependencies
-RUN npm install lucide-react axios recharts @radix-ui/react-icons tailwind-merge react-hook-form
-RUN npm install -D eslint eslint-plugin-react
-
-RUN npm i --save-dev @types/lodash
-
-
-# Update Vite config for proper aliasing
-RUN echo 'import { defineConfig } from "vite";\n\
-import react from "@vitejs/plugin-react";\n\
-import tailwindcss from "@tailwindcss/vite";\n\
-import path from "path";\n\
-\n\
-export default defineConfig({\n\
-  plugins: [react(), tailwindcss()],\n\
-  resolve: {\n\
-    alias: {\n\
-      "@": path.resolve(__dirname, "src"),\n\
-    },\n\
-  },\n\
-  server: {\n\
-    allowedHosts: true,\n\
-    port: 3000,\n\
-    host: "0.0.0.0",\n\
-  },\n\
-});' > vite.config.ts
-
-RUN echo 'export default {\n\
-  plugins: {\n\
-    "@tailwindcss/postcss": {},\n\
-    autoprefixer: {},\n\
-  },\n\
-};' > postcss.config.ts
-
 RUN npm run build
 
-RUN cat /frontend/package.json
-
-# Expose the development server port
 EXPOSE 3000
