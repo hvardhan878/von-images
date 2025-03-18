@@ -31,7 +31,7 @@ RUN npm install react@18.3.1 react-dom@18.3.1 react-router-dom@7.3.0 typescript@
     @types/node@22.5.5 @types/react@18.3.3 @types/react-dom@18.3.0
 
 # Install Tailwind CSS and its peer dependencies
-RUN npm install -D tailwindcss postcss autoprefixer @tailwindcss/postcss @tailwindcss/vite
+RUN npm install -D tailwindcss@3.4.1 postcss autoprefixer @tailwindcss/postcss @tailwindcss/vite
 
 # Configure Tailwind CSS
 RUN echo 'module.exports = {\n\
@@ -39,7 +39,10 @@ RUN echo 'module.exports = {\n\
   theme: {\n\
     extend: {\n\
       colors: {\n\
-        border: "hsl(var(--border))",\n\
+        border: {\n\
+          DEFAULT: "hsl(var(--border))",\n\
+          50: "hsl(var(--border) / 0.5)",\n\
+        },\n\
         background: "hsl(var(--background))",\n\
         foreground: "hsl(var(--foreground))",\n\
         card: "hsl(var(--card))",\n\
@@ -64,6 +67,9 @@ RUN echo 'module.exports = {\n\
       },\n\
     },\n\
   },\n\
+  safelist: [\n\
+    "border-border",\n\
+  ],\n\
   plugins: [],\n\
 };' > tailwind.config.ts
 
