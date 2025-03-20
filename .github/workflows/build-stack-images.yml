@@ -1,5 +1,4 @@
 name: Build Stack Images
-
 on:
   workflow_dispatch:
     inputs:
@@ -8,10 +7,8 @@ on:
         required: false
         default: 'latest'
         type: string
-
 env:
   REGISTRY: ghcr.io
-
 jobs:
   build-and-push:
     strategy:
@@ -19,23 +16,22 @@ jobs:
         app:
           - name: react-shadcn
             dockerfile: images/ReactjsShadcnDockerfile
+          - name: fastapi
+            dockerfile: images/FastAPIDockerfile
     name: Build ${{ matrix.app.name }} Image
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Log in to the Container registry
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Extract metadata for Docker
         id: meta
         uses: docker/metadata-action@v5
@@ -43,7 +39,6 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ github.repository }}-pack-${{ matrix.app.name }}
           tags: |
             type=raw,value=${{ inputs.tag }}
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
