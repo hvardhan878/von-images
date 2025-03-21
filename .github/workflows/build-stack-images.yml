@@ -14,8 +14,6 @@ jobs:
     strategy:
       matrix:
         app:
-          - name: react-shadcn
-            dockerfile: images/ReactjsShadcnDockerfile
           - name: fastapi
             dockerfile: images/FastAPIDockerfile
     name: Build ${{ matrix.app.name }} Image
