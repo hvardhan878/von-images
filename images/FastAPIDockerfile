@@ -1,8 +1,7 @@
 # Use an official Python runtime as a parent image
 FROM python:3.11-slim
 
-# Create and set working directory in the container
-RUN mkdir -p /app
+
 WORKDIR /app
 
 # Install system dependencies including git
