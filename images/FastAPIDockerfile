@@ -17,6 +17,9 @@ RUN git clone https://github.com/hvardhan878/alace-template.git full
 
 WORKDIR /full
 
+RUN rm -rf .git/
+RUN git init
+
 # Install Python dependencies
 RUN pip install --no-cache-dir -r api/requirements.txt
 
