@@ -1,6 +1,7 @@
 FROM python:3.11
 
-WORKDIR /
+RUN mkdir -p /app
+WORKDIR /app
 
 # Install necessary packages
 RUN apt-get update && \
