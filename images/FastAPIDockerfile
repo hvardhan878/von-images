@@ -21,9 +21,9 @@ RUN apt-get update && \
 RUN node --version && npm --version
 
 # Clone the repository
-RUN git clone https://github.com/hvardhan878/alace-template.git full
+RUN git clone https://github.com/hvardhan878/alace-template.git frontend
 
-WORKDIR /full
+WORKDIR /frontend
 
 RUN rm -rf .git/
 RUN git init
