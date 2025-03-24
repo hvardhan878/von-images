@@ -14,8 +14,8 @@ jobs:
     strategy:
       matrix:
         app:
-          - name: fastapi
-            dockerfile: images/FastAPIDockerfile
+          - name: express
+            dockerfile: images/ExpressReact
     name: Build ${{ matrix.app.name }} Image
     runs-on: ubuntu-latest
     permissions:
