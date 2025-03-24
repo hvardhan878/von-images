@@ -1,0 +1,34 @@
+# Use an official Python runtime as a parent image
+FROM python:3.11-slim
+
+
+WORKDIR /
+
+# Install necessary packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    wget \
+    zip \
+    tree \
+    git \
+    unzip && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN node --version && npm --version
+
+# Clone the repository
+RUN git clone https://github.com/hvardhan878/alace-template-express.git frontend
+
+WORKDIR /frontend
+
+RUN rm -rf .git/
+RUN git init
+
+RUN npm install --force
+RUN npm run build
+
+EXPOSE 3000
