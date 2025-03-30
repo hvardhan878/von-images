@@ -16,6 +16,8 @@ jobs:
         app:
           - name: express
             dockerfile: images/ExpressReact
+          - name: react-shadcn
+            dockerfile: images/ReactjsShadcnDockerfile
     name: Build ${{ matrix.app.name }} Image
     runs-on: ubuntu-latest
     permissions:
