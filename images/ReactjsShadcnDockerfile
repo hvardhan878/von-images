@@ -18,11 +18,11 @@ RUN apt-get update && \
 
 RUN node --version && npm --version
 
-RUN git clone https://github.com/hvardhan878/blank-canvas-template.git frontend
+# Download as tarball instead of git clone to avoid Git tracking issues
+RUN mkdir -p /frontend && \
+    curl -L https://github.com/hvardhan878/blank-canvas-template/archive/refs/heads/main.tar.gz | tar -xz --strip-components=1 -C /frontend
 
 WORKDIR /frontend
-
-RUN rm -rf .git/
 
 RUN npm install --force
 RUN npm run build
