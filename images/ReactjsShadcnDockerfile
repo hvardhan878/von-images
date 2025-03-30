@@ -23,7 +23,6 @@ RUN git clone https://github.com/hvardhan878/blank-canvas-template.git frontend
 WORKDIR /frontend
 
 RUN rm -rf .git/
-RUN git init
 
 RUN npm install --force
 RUN npm run build
