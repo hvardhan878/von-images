@@ -22,6 +22,8 @@ RUN mkdir -p /frontend
 
 WORKDIR /frontend
 
+RUN pwd
+
 EXPOSE 5173
 EXPOSE 8000
 EXPOSE 8080
