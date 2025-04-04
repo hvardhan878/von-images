@@ -1,0 +1,28 @@
+FROM python:3.11
+
+WORKDIR /
+
+# Install necessary packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    wget \
+    zip \
+    tree \
+    git \
+    unzip && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN node --version && npm --version
+
+RUN mkdir -p /frontend
+
+WORKDIR /frontend
+
+EXPOSE 5173
+EXPOSE 8000
+EXPOSE 8080
+EXPOSE 3000

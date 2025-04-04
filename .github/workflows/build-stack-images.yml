@@ -18,6 +18,8 @@ jobs:
             dockerfile: images/ExpressReact
           - name: react-shadcn
             dockerfile: images/ReactjsShadcnDockerfile
+          - name: react-vite-user-upload
+            dockerfile: images/ReactViteUserUploadDockerfile
     name: Build ${{ matrix.app.name }} Image
     runs-on: ubuntu-latest
     permissions:
