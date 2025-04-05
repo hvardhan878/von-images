@@ -14,6 +14,8 @@ jobs:
     strategy:
       matrix:
         app:
+          - name: fastapi
+            dockerfile: images/FastAPIDockerfile
           - name: express
             dockerfile: images/ExpressReact
           - name: react-shadcn
