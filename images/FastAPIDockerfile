@@ -21,9 +21,9 @@ RUN apt-get update && \
 RUN node --version && npm --version
 
 # Clone the repository
-RUN git clone -b minimal https://github.com/hvardhan878/alace-template.git frontend
+RUN git clone -b von-stack https://github.com/hvardhan878/alace-template.git backend
 
-WORKDIR /frontend
+WORKDIR /backend
 
 RUN rm -rf .git/
 RUN git init
@@ -31,10 +31,6 @@ RUN git init
 # Install Python dependencies
 RUN pip install --no-cache-dir -r api/requirements.txt
 
-RUN npm install --force
-RUN npm run build
 
-
-# Make ports available to the world outside this container
-EXPOSE 8000 3000
+EXPOSE 3000
 
