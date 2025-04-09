@@ -31,7 +31,7 @@ RUN npm install --force
 RUN npm run build
 
 EXPOSE 3000
-EXPOSE 8081
+EXPOSE 8080
 
 # Start code-server to serve the frontend
-CMD ["code-server", "--auth", "none", "--bind-addr", "0.0.0.0:8081", "/frontend"]
+CMD ["code-server","--auth","none","--cert","--bind-addr", "0.0.0.0:8080", "/frontend"]
