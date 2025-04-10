@@ -32,6 +32,3 @@ RUN npm run build
 
 EXPOSE 3000
 EXPOSE 8080
-
-# Start code-server to serve the frontend
-# CMD ["code-server", "--auth", "none", "--bind-addr", "0.0.0.0:3000", "/frontend"]
