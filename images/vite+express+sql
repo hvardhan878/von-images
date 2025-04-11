@@ -21,7 +21,7 @@ RUN apt-get update && \
 RUN node --version && npm --version
 
 # Clone the repository
-RUN git clone -b minimal https://github.com/hvardhan878/alace-template-express.git frontend
+RUN git clone -b vite+express+sql https://github.com/hvardhan878/alace-template-express.git frontend
 
 WORKDIR /frontend
 
