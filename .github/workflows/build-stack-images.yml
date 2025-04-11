@@ -17,8 +17,8 @@ jobs:
           - name: expo
             dockerfile: images/ExpoDockerfile
           - name: fastapi
-            dockerfile: images/FastAPIDockerfile
-          - name: express
+            dockerfile: images/vite+express+sql
+          - name: vite+express+sql
             dockerfile: images/ExpressReact
           - name: react-shadcn
             dockerfile: images/ReactjsShadcnDockerfile
