@@ -15,7 +15,7 @@ jobs:
       matrix:
         app:
           - name: sql
-            dockerfile: images/vite+express+sql/Dockerfile
+            dockerfile: images/sql
 
     name: Build ${{ matrix.app.name }} Image
     runs-on: ubuntu-latest
