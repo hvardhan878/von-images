@@ -20,7 +20,7 @@ RUN node --version && npm --version
 
 # Download as tarball instead of git clone to avoid Git tracking issues
 RUN mkdir -p /frontend && \
-    curl -L https://github.com/hvardhan878/alace-template/archive/refs/heads/vite+express+sql.zip | tar -xz --strip-components=1 -C /frontend
+    curl -L https://github.com/hvardhan878/alace-template/archive/refs/heads/vite+express+sql.tar.zip | tar -xz --strip-components=1 -C /frontend
 
 WORKDIR /frontend
 
