@@ -14,16 +14,9 @@ jobs:
     strategy:
       matrix:
         app:
-         # - name: expo
-           # dockerfile: images/ExpoDockerfile
-         # - name: fastapi
-             dockerfile: images/vite+express+sql
-            - name: sql
-          # dockerfile: images/ExpressReact
-         # - name: react-shadcn
-          #  dockerfile: images/ReactjsShadcnDockerfile
-          #- name: react-vite-user-upload
-          #  dockerfile: images/ReactViteUserUploadedDockerfile
+          - name: sql
+            dockerfile: images/vite+express+sql/Dockerfile
+
     name: Build ${{ matrix.app.name }} Image
     runs-on: ubuntu-latest
     permissions:
