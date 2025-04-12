@@ -16,6 +16,9 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Install code-server
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+
 RUN node --version && npm --version
 
 RUN mkdir -p /frontend
@@ -28,3 +31,4 @@ EXPOSE 5173
 EXPOSE 8000
 EXPOSE 8080
 EXPOSE 3000
+EXPOSE 8080
