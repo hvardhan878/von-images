@@ -15,19 +15,17 @@ jobs:
       matrix:
         app:
           - name: sql
-            dockerfile: images/sql
+            dockerfile: images/SqlDockerfile
           - name: expo
             dockerfile: images/ExpoDockerfile
-          - name: fastapi
-            dockerfile: images/vite+express+sql
-          - name: vite+express+sql
-            dockerfile: images/ExpressReact
           - name: react-shadcn
             dockerfile: images/ReactjsShadcnDockerfile
           - name: react-shadcn-code-server
             dockerfile: images/ReactjsShadcnCodeServerDockerfile
           - name: react-vite-user-upload
             dockerfile: images/ReactViteUserUploadedDockerfile
+          - name: fastapi
+             dockerfile: images/FastAPIDockerfile
     name: Build ${{ matrix.app.name }} Image
     runs-on: ubuntu-latest
     permissions:
