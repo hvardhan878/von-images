@@ -18,6 +18,9 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# Install code-server
+RUN curl -fsSL https://code-server.dev/install.sh | sh
+
 RUN node --version && npm --version
 
 # Download as tarball instead of git clone to avoid Git tracking issues
@@ -33,4 +36,4 @@ RUN uvicorn api.main:app --host 0.0.0.0 --port 3000 --reload
 
 
 EXPOSE 3000
-
+EXPOSE 8080
