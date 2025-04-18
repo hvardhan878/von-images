@@ -26,6 +26,8 @@ jobs:
             dockerfile: images/ReactViteUserUploadedDockerfile
           - name: fastapi
             dockerfile: images/FastAPIDockerfile
+          - name: nextjs-shadcn
+            dockerfile: images/NextJsShadcnDockerfile
     name: Build ${{ matrix.app.name }} Image
     runs-on: ubuntu-latest
     permissions:
