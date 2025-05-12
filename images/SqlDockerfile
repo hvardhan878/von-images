@@ -23,11 +23,11 @@ RUN curl -fsSL https://code-server.dev/install.sh | sh
 RUN node --version && npm --version
 
 # Clone the repository
-RUN mkdir -p /app/frontend && \
+RUN mkdir -p /frontend && \
     curl -L https://github.com/Rohit-Yadav-47/nextjs-sqlite-image/archive/refs/heads/main.tar.gz | tar -xz --strip-components=1 -C /app/frontend
 
 # Setup frontend application
-WORKDIR /app/frontend
+WORKDIR /frontend
 RUN npm install --force
 RUN npm run build
 
