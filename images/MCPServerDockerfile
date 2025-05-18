@@ -1,0 +1,33 @@
+FROM python:3.11
+
+WORKDIR /
+
+# Install necessary packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    curl \
+    wget \
+    zip \
+    tree \
+    git \
+    unzip && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y --no-install-recommends nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install code-server
+# RUN curl -fsSL https://code-server.dev/install.sh | sh
+
+RUN node --version && npm --version
+
+# Download as tarball instead of git clone to avoid Git tracking issues
+RUN mkdir -p /server && \
+    curl -L https://github.com/vireshuberoy/von-mcp-initial/archive/refs/heads/main.tar.gz | tar -xz --strip-components=1 -C /server
+
+WORKDIR /server
+
+RUN npm install --legacy-peer-deps
+RUN npm run build
+
+EXPOSE 2300
