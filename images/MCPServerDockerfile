@@ -27,7 +27,7 @@ RUN mkdir -p /server && \
 
 WORKDIR /server
 
-RUN npm install --legacy-peer-deps
+RUN npm install
 RUN npm run build
 
 EXPOSE 2300

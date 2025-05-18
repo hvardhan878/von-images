@@ -16,6 +16,8 @@ jobs:
         app:
           - name: sql
             dockerfile: images/SqlDockerfile
+          - name: mcpserver
+            dockerfile: images/MCPServerDockerfile
      
     name: Build ${{ matrix.app.name }} Image
     runs-on: ubuntu-latest
