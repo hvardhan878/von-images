@@ -22,12 +22,12 @@ RUN apt-get update && \
 RUN node --version && npm --version
 
 # Download as tarball instead of git clone to avoid Git tracking issues
-RUN mkdir -p /server && \
-    curl -L https://github.com/vireshuberoy/von-mcp-initial/archive/refs/heads/main.tar.gz | tar -xz --strip-components=1 -C /server
+RUN mkdir -p /frontend && \
+    curl -L https://github.com/vireshuberoy/von-mcp-initial/archive/refs/heads/main.tar.gz | tar -xz --strip-components=1 -C /frontend
 
-WORKDIR /server
+WORKDIR /frontend
 
 RUN npm install
 RUN npm run build
 
-EXPOSE 2300
+EXPOSE 3000
