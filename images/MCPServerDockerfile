@@ -29,5 +29,4 @@ WORKDIR /frontend
 
 RUN npm install
 
-EXPOSE 2300
 EXPOSE 3000
