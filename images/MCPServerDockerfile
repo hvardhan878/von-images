@@ -17,9 +17,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install code-server
-RUN curl -fsSL https://code-server.dev/install.sh | sh
+# RUN curl -fsSL https://code-server.dev/install.sh | sh
 
-RUN node --version && npm --version
+# RUN node --version && npm --version
 
 # Download as tarball instead of git clone to avoid Git tracking issues
 RUN mkdir -p /frontend && \
@@ -27,8 +27,13 @@ RUN mkdir -p /frontend && \
 
 WORKDIR /frontend
 
-RUN npm install
-RUN npm run build
+RUN npm i -g netlify-cli
+# Plan is to 
+# 1. Just have this code present in the modal container, so that the AI can edit it. Will have to explicitly inform
+# it to not make changes to any file except the file in netlify/functions/serverless-mcp-server.ts or netlify/mcp-server.ts
+# 2. The AI will make changes to the file, and we will deploy using netlify CLI (on the modal container, will have to export our PAT only on teh container though)
+# RUN npm install
+# RUN npm run build
 
-EXPOSE 3000
-EXPOSE 8080
+# EXPOSE 3000
+# EXPOSE 8080
