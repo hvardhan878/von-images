@@ -24,7 +24,7 @@ RUN node --version && npm --version
 
 # Clone the repository
 RUN mkdir -p /frontend && \
-    curl -L https://github.com/Rohit-Yadav-47/nextjs-sqlite-image/archive/refs/heads/main.tar.gz | tar -xz --strip-components=1 -C /frontend
+    curl -L https://github.com/hvardhan878/alace-template/archive/refs/heads/vite+express+sql.tar.gz | tar -xz --strip-components=1 -C /frontend
 
 # Setup frontend application
 WORKDIR /frontend
