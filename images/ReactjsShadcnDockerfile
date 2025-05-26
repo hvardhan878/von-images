@@ -29,7 +29,6 @@ WORKDIR /frontend
 
 RUN npm install --force
 RUN npm run build
-RUN npm run dev -- --port=3001
 
 EXPOSE 3000
 EXPOSE 3001
